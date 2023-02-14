@@ -1,2 +1,2 @@
 #!/bin/bash
-cat prog_lang | sort |uniq -u
+sort prog_lang |uniq 
