@@ -1,2 +1,2 @@
 #!/bin/bash
-sort < prog_lang | uniq -u 
+sort | uniq -u 
