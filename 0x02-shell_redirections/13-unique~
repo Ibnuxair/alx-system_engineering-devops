@@ -1,2 +1,0 @@
-#!/bin/bash
-cat prog_lang | tr " " "\n" | sort | tr "\n" " " | grep -o '\w*'
