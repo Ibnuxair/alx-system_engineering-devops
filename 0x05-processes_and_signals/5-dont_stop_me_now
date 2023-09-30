@@ -1,12 +1,4 @@
 #!/usr/bin/env bash
 # Kills a running process.
 
-# Find the PID of the 4-to_infinity_and_beyond process
-pid=$(pgrep -f "4-to_infinity_and_beyond")
-
-if [ -z "$pid" ]; then
-    echo "4-to_infinity_and_beyond process is not running."
-else
-    # Send a termination signal to the process using kill
-    kill "$pid"
-fi
+kill "$(ps -x | pgrep -f beyond)"
