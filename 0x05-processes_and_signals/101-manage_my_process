@@ -18,7 +18,7 @@ start_process() {
 # Function to stop the process
 stop_process() {
     if [ -f "$PID_FILE" ]; then
-        kill -19 "$(cat "$PID_FILE")"
+        kill -15 "$(cat "$PID_FILE")"
         rm -f "$PID_FILE"
         echo "manage_my_process stopped"
     else
@@ -29,7 +29,7 @@ stop_process() {
 # Function to restart the process
 restart_process() {
     if [ -f "$PID_FILE" ]; then
-	kill -19 "$(cat "$PID_FILE")"
+	kill -15 "$(cat "$PID_FILE")"
 	rm -f "$PID_FILE"
 	./manage_my_process &
 	echo $! > "$PID_FILE"
