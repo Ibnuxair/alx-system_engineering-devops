@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#/usr/bin/env bash
 # This script displays:
 # username
 # user id
@@ -10,6 +10,7 @@ if [ ! -f /etc/passwd ]; then
 fi
 
 # Use a while loop to read the file line by line
-while IFS=: read -r username _ uid _ _ home_dir _; do
-      echo "$username:$uid:$home_dir"
+while IFS=: read -r username _ uid _ home_dir _; do
+    # Print the extracted information in the desired format
+    echo "$username:$uid:$home_dir"
 done < /etc/passwd
