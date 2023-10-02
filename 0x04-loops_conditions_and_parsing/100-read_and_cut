@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script displays:
+# username
+# user id
+# Home directory path for the user; of the file /etc/passwd.
+
+if [ ! -f /etc/passwd ]; then
+   echo "The file doesn't exist"
+   exit 1
+fi
+
+# Use a while loop to read the file line by line
+while IFS=: read -r username _ uid _ _ home_dir _; do
+      echo "$username:$uid:$home_dir"
+done < /etc/passwd
