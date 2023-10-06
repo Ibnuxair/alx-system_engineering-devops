@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 # This script pings an IP address passed as an argument.
 
+script_name=$(basename "$0")
+
 if [ "$#" -eq 1 ]; then
    ping -c 5 "$1"
 else
-   echo "Usage: '$0' {IP_ADDRESS}"
+   echo "Usage: $script_name {IP_ADDRESS}"
 fi
