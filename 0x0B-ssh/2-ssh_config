@@ -1,0 +1,7 @@
+# SSH client configuration file: ~/.ssh/config
+# Default settings applied to all hosts
+
+Host *
+    PasswordAuthentication no
+    PubkeyAuthentication yes
+    IdentityFile ~/.ssh/school
