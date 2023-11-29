@@ -6,11 +6,5 @@ sudo apt-get install -y nginx
 # Create a custom HTML file
 echo "Hello World!" > /usr/share/nginx/html/index.html
 
-# Make a request to generate an access log entry
-curl http://localhost/ > /dev/null
-
-# Make a request to a non-existent page to generate an error log entry
-curl http://localhost/nonexistent-page > /dev/null
-
-# Restart Nginx without systemctl
-sudo kill -HUP $(pgrep -f "nginx: master process") 2>/dev/null || true
+# Start Nginx service
+sudo service nginx start
