@@ -1,10 +1,27 @@
 #!/usr/bin/env bash
-# Install Nginx
+
+# Update package list and install Nginx
 sudo apt-get update
 sudo apt-get install -y nginx
 
-# Create a custom HTML file
-echo "Hello World!" > /usr/share/nginx/html/index.html
+# Check if Nginx installation was successful
+if ! command -v nginx &> /dev/null; then
+    echo "Nginx installation failed. Exiting..."
+    exit 1
+fi
 
-# Restart Nginx without systemctl
-sudo kill -HUP $(pgrep -f "nginx: master process") 2>/dev/null || true
+# Create a custom HTML file with "Hello World!" content
+sudo sh -c 'echo "Hello World!" > /var/www/html/index.html'
+
+# Check if Nginx is already listening on port 80 using ss
+nginx_status=$(sudo ss -tln timeout 3 | grep -E ':80')
+
+if [ -z "$nginx_status" ]; then
+    # Stop Nginx gracefully
+    sudo pkill -QUIT nginx
+
+    # Start Nginx listening on port 80
+    sudo nginx -g "daemon off;"
+else
+    echo "Nginx is already listening on port 80."
+fi
