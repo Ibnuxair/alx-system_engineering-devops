@@ -6,5 +6,5 @@ sudo apt-get install -y nginx
 # Create a custom HTML file
 echo "Hello World!" > /usr/share/nginx/html/index.html
 
-# Start Nginx service
-sudo service nginx start
+# Restart Nginx without systemctl
+kill -HUP $(pgrep -f "nginx: master process") 2>/dev/null || true
