@@ -1,0 +1,29 @@
+#!/bin/bash
+# Install HAProxy
+sudo apt-get update
+sudo apt-get install -y haproxy
+
+# Set the correct hostnames for web-01 and web-02
+sudo sed -i 's/^\(127.0.0.1\s\+\).*$/297242-web-01 297242-web-02/' /etc/hosts
+
+# Configure HAProxy
+sudo sed -i '/^frontend http_front$/,/^backend http_back$/d' /etc/haproxy/haproxy.cfg
+
+sudo tee -a /etc/haproxy/haproxy.cfg > /dev/null << 'EOF'
+frontend http_front
+    bind *:80
+    stats uri /haproxy?stats
+    default_backend http_back
+
+backend http_back
+    balance roundrobin
+    server web01 297242-web-01:80 check
+    server web02 297242-web-02:80 check
+
+EOF
+
+# Ensure HAProxy can be managed via init script
+sudo sed -i 's/^ENABLED=0/ENABLED=1/' /etc/default/haproxy
+
+# Restart HAProxy service
+sudo service haproxy restart
