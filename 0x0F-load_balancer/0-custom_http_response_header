@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Install Nginx if not already installed
+sudo apt-get update
+sudo apt-get install -y nginx
+
+# Define the hostname
+# shellcheck disable=SC2154
+HOSTNAME=$(hostname)
+
+# Define the custom header configuration in a variable
+HEADER_CONFIG="add_header X-Served-By \"$HOSTNAME\";"
+
+# Add the custom header configuration to the default server block
+sudo sed -i "/listen 80 default_server;/a \ \ \ \ $HEADER_CONFIG" /etc/nginx/sites-enabled/default
+
+# Start Nginx service
+sudo service nginx start
