@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Ensure NGINX is stopped
+sudo service nginx stop
+
+# Modify NGINX configuration to run as nginx user
+sudo sed -i 's/user\s*www-data;/user nginx;/' /etc/nginx/nginx.conf
+
+# Update NGINX configuration to listen on port 8080 for all IPs
+sudo sed -i '/^ *listen[ ]*80;/s//    listen 8080;/' /etc/nginx/sites-enabled/default
+
+# Start Nginx service using nginx user
+sudo service nginx start
