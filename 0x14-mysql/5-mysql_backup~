@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Check if password argument is provided
+if [ -z "$1" ]; then
+    echo "Please provide the MySQL password as an argument."
+    exit 1
+fi
+
+# Get the current date for the archive name
+current_date=$(date +"%d-%m-%Y")
+
+# MySQL dump command to backup all databases
+sudo mysqldump -u root -p"$1" --all-databases > backup.sql
+
+# Compress the SQL dump to a tar.gz archive
+tar -czvf "$current_date.tar.gz" backup.sql
