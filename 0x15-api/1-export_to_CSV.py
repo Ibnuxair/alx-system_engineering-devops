@@ -2,7 +2,7 @@
 
 """Using REST API, returns information about employee TODO list progress."""
 
-
+import csv
 import requests
 import sys
 
@@ -35,10 +35,13 @@ if __name__ == "__main__":
     total_tasks = len(todos)
     completed_task_titles = [task['title'] for task in completed_tasks]
 
-    # Display employee's TODO list progress
-    print(
-        f"Employee {employee_data['name']} is done with tasks("
-        f"{len(completed_tasks)}/{total_tasks}):"
-    )
-    for title in completed_task_titles:
-        print(f"\t{title}")
+    # Writing data to the CSV file
+    with open(f'{employee_id}.csv', 'w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
+
+        for task in todos:
+            task_completed = "True" if task['completed'] else "False"
+            writer.writerow(
+                [employee_id, employee_data['username'],
+                 task_completed, task['title']]
+            )
