@@ -13,7 +13,8 @@ def number_of_subscribers(subreddit):
     # Custom User-Agent to avoid API request issues
     headers = {"User-Agent": "MyRedditApp/1.0"}
     try:
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers,
+                                allow_redirects=False)
         response.raise_for_status()
 
         if response.status_code == 200:
