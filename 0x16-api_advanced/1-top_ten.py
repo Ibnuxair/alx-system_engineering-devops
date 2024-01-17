@@ -15,7 +15,8 @@ def top_ten(subreddit):
 
     try:
         params = {'limit': 10}
-        response = requests.get(url, headers=headers, params=params)
+        response = requests.get(url, headers=headers,
+                                params=params, allow_redirects=False)
         response.raise_for_status()
 
         if response.status_code == 200:
