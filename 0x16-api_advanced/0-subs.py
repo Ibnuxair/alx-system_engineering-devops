@@ -22,7 +22,7 @@ def number_of_subscribers(subreddit):
             # Parse JSON response and extract the number of subscribers
             subreddit_data = response.json().get("data")
             subscribers_count = subreddit_data.get("subscribers")
-            return subscribers_count
+            return subscribers_count if subscribers_count is not None else 0
 
         else:
             return 0
